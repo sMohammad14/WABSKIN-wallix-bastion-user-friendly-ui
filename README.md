@@ -1,3 +1,5 @@
+### آپدیت: امکان اضاه کردن Service به Device افزوده شد
+---
 به پیشنهاد یکی از دوستان تصمیم گرفتم یک پوسته کاربرپسند برای WALLIX Bastion بنویسم که فعلا از بخش Device ها با یک سری امکانات شروع کرده‌ام.
 
 اگر با WALLIX کار کرده باشید به طور کامل با ضعف‌های پوسته آن آشنا شده‌اید. پنجره‌های کوچک و متعدد که در قالب Div ها برای یک عملیات ساده ظاهر می‌شوند خسته‌کننده هستند. امکان اعمال تغییرات به صورت دسته‌ای هم وجود ندارد. برای مثال اگر تصمیم به تغییر Policy چند Device داشته باشید باید تک تک اقدام کنید در حالی که در نرم‌افزارهای مشابه مانند PAM360 این امکان فراهم هست و می‌توانید یک عملیات خاص را به صورت دسته‌ای برای چند آبجکت انجام دهید.
@@ -23,7 +25,7 @@
 
 ❌ امکان حذف Device فراهم نیست
 
-❌ امکان اضافه کردن Service فراهم نیست
+❌ امکان اضافه کردن Service فراهم نیست | ✅ این ویژگی اضافه شد. 
 
 
 💎 تمام Policy ها و محدودیت های برای کار با Device ها در نظر گرفته شده است مانند کاراکترهای مجاز برای نام‌گذاری و بررسی رعایت فرمت IP/FQDN/SubnetIP برای آدرس سامانه‌های مقصد و سایر موارد مشابه.
@@ -46,3 +48,49 @@
 
 
 این پروژه در حال توسعه است و مسئولیت بهره‌برداری از این پروژه و استفاده از آن با کاربر استفاده‌کننده است و توسعه‌دهنده هیچ مسئولیتی نمی‌پذیرد.
+---
+---
+
+### Update: Added the ability to add Services to Devices.
+---
+Based on a suggestion from a friend, I decided to write a user-friendly skin for WALLIX Bastion, which I have currently started with the Devices section and a set of features.
+
+If you have worked with WALLIX, you are fully familiar with the weaknesses of its interface. Numerous small windows appearing in the form of Divs for a simple operation are frustrating. There is also no possibility for bulk changes. For example, if you decide to change the Policy of several Devices, you must act one by one, whereas in similar software like PAM360, this possibility is provided and you can perform a specific operation in bulk for several objects.
+
+This project is developed based on the Bastion system APIs and does not require a server or special access. This tool works with an Admin user with limited and controlled access. This tool can modify four Device components including Name, Address, Description, and Alias. You can also manage the Services of each Device more easily with this project. The features currently available in this project include the following:
+
+✅ Ability to modify Device Name is provided
+
+✅ Ability to modify IP/FQDN/SubnetIP is provided
+
+✅ Ability to modify Description is provided
+
+✅ Ability to modify Alias is provided
+
+✅ Ability to modify Sub-Protocols of Services assigned to the Device and Port Number is provided
+
+✅ Ability to delete Services assigned to the Device is provided
+
+Features that are currently NOT available include:
+
+❌ Ability to add a Device is not provided
+
+❌ Ability to delete a Device is not provided
+
+❌ Ability to add a Service is not provided | ✅ This feature has been added.
+
+💎 All Policies and limitations for working with Devices have been considered, such as allowed characters for naming and checking compliance with IP/FQDN/SubnetIP formats for destination system addresses and other similar cases.
+
+The next step is to add features that are not currently supported for Devices, which were mentioned earlier.
+
+At the bottom of the page, a console is placed so that all logs and possible errors can be observed and troubleshooting can be performed. This tool will greatly help the expansion of the project.
+
+💡 Future steps will include expanding the project for all items such as Users, User Groups, Server Groups, and Authorization.
+
+## 🚨 Discovered bugs are as follows: ##
+
+⚠️ Adding a Device without a name is possible! The interesting point is that you can add a Device without a name using APIs. This issue can be one of the serious threats to the security of a large IT-oriented organization, because you can create a nameless Device and probably provide it to a user, while such a device does not exist in the UI and it is probably not possible for you to find it either, because the UI can only display Devices that have a name and searching based on ID is not possible. This case is significant for the PAM system, which is responsible for managing access to critical systems of organizations, and organizations should approach such products with more caution and accept its risks, because usually such platforms will not accept any responsibility due to lack of accountability within the country.
+
+⚠️ Changing the Port number of a Device service that the user does not have permission to access under a specific Protocol is possible. If a user has access to a destination through groups but this access is limited from the Authorization section, the user can change the Port number through APIs. The risk and importance of this issue becomes clear when the user is merely an End-User but can change Device configurations due to the access creation structure in PAM by observing a Device. Suppose a Device provides service on one port number only to User-type users and on another port number to Administrator or Root users. With a simple port change, the user can escalate their access and create very dangerous risks for the organization. The interesting point here is that large and vital organizations turn to using PAM with the aim of covering such risks, and from now on they must be much more careful in choosing the product and its contractor, deployment, and operation of the systems. It is worth mentioning that software product providers, especially with a purely commercial approach, are undoubtedly familiar with the product in more detail, but there is a fear that they may refrain from mentioning them due to commercial issues.
+
+# This project is under development and the responsibility for the operation and use of this project lies with the user, and the developer accepts no responsibility.
